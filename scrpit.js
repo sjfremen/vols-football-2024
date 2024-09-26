@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Load Play Type Counts Data
     const playTypeTableBody = document.getElementById('play-type-table').getElementsByTagName('tbody')[0];
 
-    fetch('data/play_type_counts_by_week.csv') // Ensure this path is correct
+    fetch('data/play_type.csv') // Ensure this path is correct
         .then(response => response.text())
         .then(data => {
             const rows = data.split('\n');
