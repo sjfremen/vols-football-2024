@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const rows = data.split('\n');
             const headers = rows[0].split(','); // Assuming first row contains headers
             
+            console.log("Headers:", headers); // Log headers to verify
+            console.log("Raw rows:", rows); // Log raw rows to verify
+            
             // Start from the second row (index 1) to skip headers
             for (let i = 1; i < rows.length; i++) {
                 const cols = rows[i].split(',');
