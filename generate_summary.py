@@ -1,5 +1,7 @@
 import pandas as pd
 import glob
+import plotly.express as px
+import plotly.graph_objects as go
 
 # Step 1: Load all Week CSV files
 all_files = glob.glob('data/Week*.csv')
@@ -35,7 +37,24 @@ summary_metrics.reset_index(inplace=True)
 summary_metrics.to_csv('data/summary_data.csv', index=False)
 
 # Create a bar chart for Total Plays by Week
-fig = px.bar(df, x='Week', y='Total Plays', title='Total Plays by Week')
+#fig = px.bar(summary_metrics, x='Week', y='Total Plays', title='Total Plays by Week')
 
+# Create a Plotly table
+fig_table = go.Figure(data=[go.Table(
+    header=dict(values=list(summary_metrics.columns),
+                fill_color='paleturquoise',
+                align='left'),
+    cells=dict(values=[summary_metrics[col] for col in summary_metrics.columns],
+               fill_color='lavender',
+               align='left'))
+])
+
+# Update layout
+fig_table.update_layout(title='NCAA Football Summary Data')
+
+# Save the table figure as an HTML file
+fig_table.write_html('plots/summary_table.html')
+
+fig_table.show()
 # Save the figure as an HTML file
-fig.write_html('plots/total_plays_by_week.html')
+#fig.write_html('plots/total_plays_by_week.html')
