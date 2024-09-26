@@ -17,8 +17,14 @@
         <table id="data-table">
             <thead>
                 <tr>
-                    <th>Play Type</th>
-                    <th>Count</th>
+                    <th>Week</th>
+                    <th>Total Plays</th>
+                    <th>Positive Plays</th>
+                    <th>Neutral Plays</th>
+                    <th>Negative Plays</th>
+                    <th>Positive %</th>
+                    <th>Neutral %</th>
+                    <th>Negative %</th>
                 </tr>
             </thead>
             <tbody>
@@ -30,16 +36,22 @@
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <script>
         // Load CSV data using D3.js
-        d3.csv("summary_data.csv").then(function(data) {
+        d3.csv("data/summary_data.csv").then(function(data) {
             // Select the table body
             const tbody = d3.select("#data-table tbody");
             
             // Bind data to table rows
             data.forEach(d => {
-                // Create a new row for each play type
+                // Create a new row for each week
                 const row = tbody.append("tr");
-                row.append("td").text(d['Play Type']); // Use the correct column name
-                row.append("td").text(d.Count); // Assuming Count is a number
+                row.append("td").text(d.Week); // Week column
+                row.append("td").text(d['Total Plays']); // Total Plays column
+                row.append("td").text(d['Positive Plays']); // Positive Plays column
+                row.append("td").text(d['Neutral Plays']); // Neutral Plays column
+                row.append("td").text(d['Negative Plays']); // Negative Plays column
+                row.append("td").text(d['Positive %']); // Positive % column
+                row.append("td").text(d['Neutral %']); // Neutral % column
+                row.append("td").text(d['Negative %']); // Negative % column
             });
         }).catch(error => {
             console.error('Error loading the CSV file:', error);
