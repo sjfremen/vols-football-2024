@@ -70,7 +70,7 @@
         });
 
         // Load play type counts data
-        d3.csv("play_type_counts_by_week.csv").then(function(data) {
+        d3.csv("data/play_type.csv").then(function(data) {
             const tbody = d3.select("#play-type-table tbody");
             const weeks = Array.from(new Set(data.map(d => d['Week']))); // Get unique weeks
 
