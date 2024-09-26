@@ -52,7 +52,7 @@
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <script>
         // Load summary data
-        d3.csv("summary_data.csv").then(function(data) {
+        d3.csv("data/summary_data.csv").then(function(data) {
             const tbody = d3.select("#summary-data-table tbody");
             data.forEach(d => {
                 const row = tbody.append("tr");
