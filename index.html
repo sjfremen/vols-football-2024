@@ -27,6 +27,23 @@
         </table>
     </section>
 
-    <script src="script.js"></script>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script>
+        // Load CSV data using D3.js
+        d3.csv("summary_data.csv").then(function(data) {
+            // Select the table body
+            const tbody = d3.select("#data-table tbody");
+            
+            // Bind data to table rows
+            data.forEach(d => {
+                // Create a new row for each play type
+                const row = tbody.append("tr");
+                row.append("td").text(d['Play Type']); // Use the correct column name
+                row.append("td").text(d.Count); // Assuming Count is a number
+            });
+        }).catch(error => {
+            console.error('Error loading the CSV file:', error);
+        });
+    </script>
 </body>
 </html>
