@@ -33,28 +33,11 @@ summary_metrics['Negative %'] = (summary_metrics['Negative Plays'] / summary_met
 # Reset index for proper CSV formatting
 summary_metrics.reset_index(inplace=True)
 
-# Step 5: Save to CSV
+# Step 3: Generate play type counts by week
+play_type_counts_by_week = master_df.groupby(['Week', 'Play Type']).size().unstack(fill_value=0)
+total_plays_per_type = play_type_counts_by_week.sum(axis=0)
+play_type = play_type_counts_by_week.loc[:, total_plays_per_type.sort_values(ascending=False).index]
+
+# Step 5: Save to CSVs
 summary_metrics.to_csv('data/summary_data.csv', index=False)
-
-# Create a bar chart for Total Plays by Week
-#fig = px.bar(summary_metrics, x='Week', y='Total Plays', title='Total Plays by Week')
-
-# Create a Plotly table
-fig_table = go.Figure(data=[go.Table(
-    header=dict(values=list(summary_metrics.columns),
-                fill_color='paleturquoise',
-                align='left'),
-    cells=dict(values=[summary_metrics[col] for col in summary_metrics.columns],
-               fill_color='lavender',
-               align='left'))
-])
-
-# Update layout
-fig_table.update_layout(title='NCAA Football Summary Data')
-
-# Save the table figure as an HTML file
-fig_table.write_html('plots/summary_table.html')
-
-fig_table.show()
-# Save the figure as an HTML file
-#fig.write_html('plots/total_plays_by_week.html')
+play_type.to_csv('data/play_type.csv')

@@ -13,8 +13,8 @@
     </header>
     
     <section>
-        <h2>Weekly Data</h2>
-        <table id="data-table">
+        <h2>Summary Data Overview</h2>
+        <table id="summary-data-table">
             <thead>
                 <tr>
                     <th>Week</th>
@@ -28,33 +28,63 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Data will be populated here -->
+                <!-- Summary data will be populated here -->
+            </tbody>
+        </table>
+    </section>
+
+    <section>
+        <h2>Play Type Counts by Week</h2>
+        <table id="play-type-table">
+            <thead>
+                <tr>
+                    <th>Week</th>
+                    <th>Play Type</th>
+                    <th>Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Play type counts will be populated here -->
             </tbody>
         </table>
     </section>
 
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <script>
-        // Load CSV data using D3.js
-        d3.csv("data/summary_data.csv").then(function(data) {
-            // Select the table body
-            const tbody = d3.select("#data-table tbody");
-            
-            // Bind data to table rows
+        // Load summary data
+        d3.csv("summary_data.csv").then(function(data) {
+            const tbody = d3.select("#summary-data-table tbody");
             data.forEach(d => {
-                // Create a new row for each week
                 const row = tbody.append("tr");
-                row.append("td").text(d.Week); // Week column
-                row.append("td").text(d['Total Plays']); // Total Plays column
-                row.append("td").text(d['Positive Plays']); // Positive Plays column
-                row.append("td").text(d['Neutral Plays']); // Neutral Plays column
-                row.append("td").text(d['Negative Plays']); // Negative Plays column
-                row.append("td").text(d['Positive %']); // Positive % column
-                row.append("td").text(d['Neutral %']); // Neutral % column
-                row.append("td").text(d['Negative %']); // Negative % column
+                row.append("td").text(d['Week']);
+                row.append("td").text(d['Total Plays']);
+                row.append("td").text(d['Positive Plays']);
+                row.append("td").text(d['Neutral Plays']);
+                row.append("td").text(d['Negative Plays']);
+                row.append("td").text(d['Positive %']);
+                row.append("td").text(d['Neutral %']);
+                row.append("td").text(d['Negative %']);
             });
         }).catch(error => {
-            console.error('Error loading the CSV file:', error);
+            console.error('Error loading the summary CSV file:', error);
+        });
+
+        // Load play type counts data
+        d3.csv("play_type_counts_by_week.csv").then(function(data) {
+            const tbody = d3.select("#play-type-table tbody");
+            const weeks = Array.from(new Set(data.map(d => d['Week']))); // Get unique weeks
+
+            weeks.forEach(week => {
+                const weekData = data.filter(d => d['Week'] === week);
+                weekData.forEach(d => {
+                    const row = tbody.append("tr");
+                    row.append("td").text(d['Week']);
+                    row.append("td").text(d['Play Type']);
+                    row.append("td").text(d['Count']);
+                });
+            });
+        }).catch(error => {
+            console.error('Error loading the play type counts CSV file:', error);
         });
     </script>
 </body>
