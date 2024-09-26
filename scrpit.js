@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const tableBody = document.getElementById('data-table').getElementsByTagName('tbody')[0];
 
-    fetch('summary_data.csv') // Adjusted path if necessary
+    fetch('data/summary_data.csv') // Adjusted path if necessary
         .then(response => response.text())
         .then(data => {
             const rows = data.split('\n');
