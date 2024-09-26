@@ -26,9 +26,9 @@ summary_metrics = master_df[master_df['Offense'] == 'Tennessee'].groupby('Week')
 }))
 
 # Step 4: Calculate percentages
-summary_metrics['Positive %'] = (summary_metrics['Positive Plays'] / summary_metrics['Total Plays']) * 100
-summary_metrics['Neutral %'] = (summary_metrics['Neutral Plays'] / summary_metrics['Total Plays']) * 100
-summary_metrics['Negative %'] = (summary_metrics['Negative Plays'] / summary_metrics['Total Plays']) * 100
+summary_metrics['Positive %'] = round((summary_metrics['Positive Plays'] / summary_metrics['Total Plays']) * 100,2)
+summary_metrics['Neutral %'] = round((summary_metrics['Neutral Plays'] / summary_metrics['Total Plays']) * 100,2)
+summary_metrics['Negative %'] = round((summary_metrics['Negative Plays'] / summary_metrics['Total Plays']) * 100,2)
 
 # Reset index for proper CSV formatting
 summary_metrics.reset_index(inplace=True)
