@@ -34,4 +34,8 @@ summary_metrics.reset_index(inplace=True)
 # Step 5: Save to CSV
 summary_metrics.to_csv('data/summary_data.csv', index=False)
 
-print("Summary data generated and saved to 'data/summary_data.csv'")
+# Create a bar chart for Total Plays by Week
+fig = px.bar(df, x='Week', y='Total Plays', title='Total Plays by Week')
+
+# Save the figure as an HTML file
+fig.write_html('plots/total_plays_by_week.html')
