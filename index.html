@@ -39,8 +39,28 @@
             <thead>
                 <tr>
                     <th>Week</th>
-                    <th>Play Type</th>
-                    <th>Count</th>
+                    <th>Rush</th>
+                    <th>Pass Reception</th>
+                    <th>Pass Incompletion</th>
+                    <th>Kickoff</th>
+                    <th>Timeout</th>
+                    <th>Punt</th>
+                    <th>Penalty</th>
+                    <th>Rushing Touchdown</th>
+                    <th>Sack</th>
+                    <th>Field Goal Good</th>
+                    <th>Passing Touchdown</th>
+                    <th>End Period</th>
+                    <th>Fumble Recovery (Own)</th>
+                    <th>Field Goal Missed</th>
+                    <th>End of Game</th>
+                    <th>End of Half</th>
+                    <th>Fumble Recovery (Opponent)</th>
+                    <th>Pass Interception Return</th>
+                    <th>Interception Return Touchdown</th>
+                    <th>Safety</th>
+                    <th>Kickoff Return (Offense)</th>
+                    <th>Blocked Punt</th>
                 </tr>
             </thead>
             <tbody>
@@ -72,16 +92,32 @@
         // Load play type counts data
         d3.csv("data/play_type.csv").then(function(data) {
             const tbody = d3.select("#play-type-table tbody");
-            const weeks = Array.from(new Set(data.map(d => d['Week']))); // Get unique weeks
 
-            weeks.forEach(week => {
-                const weekData = data.filter(d => d['Week'] === week);
-                weekData.forEach(d => {
-                    const row = tbody.append("tr");
-                    row.append("td").text(d['Week']);
-                    row.append("td").text(d['Play Type']);
-                    row.append("td").text(d['Count']);
-                });
+            data.forEach(d => {
+                const row = tbody.append("tr");
+                row.append("td").text(d['Week']);
+                row.append("td").text(d['Rush']);
+                row.append("td").text(d['Pass Reception']);
+                row.append("td").text(d['Pass Incompletion']);
+                row.append("td").text(d['Kickoff']);
+                row.append("td").text(d['Timeout']);
+                row.append("td").text(d['Punt']);
+                row.append("td").text(d['Penalty']);
+                row.append("td").text(d['Rushing Touchdown']);
+                row.append("td").text(d['Sack']);
+                row.append("td").text(d['Field Goal Good']);
+                row.append("td").text(d['Passing Touchdown']);
+                row.append("td").text(d['End Period']);
+                row.append("td").text(d['Fumble Recovery (Own)']);
+                row.append("td").text(d['Field Goal Missed']);
+                row.append("td").text(d['End of Game']);
+                row.append("td").text(d['End of Half']);
+                row.append("td").text(d['Fumble Recovery (Opponent)']);
+                row.append("td").text(d['Pass Interception Return']);
+                row.append("td").text(d['Interception Return Touchdown']);
+                row.append("td").text(d['Safety']);
+                row.append("td").text(d['Kickoff Return (Offense)']);
+                row.append("td").text(d['Blocked Punt']);
             });
         }).catch(error => {
             console.error('Error loading the play type counts CSV file:', error);
